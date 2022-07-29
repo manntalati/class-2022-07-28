@@ -1,0 +1,43 @@
+---
+title: "Height and Weight"
+output: html_document
+date: "2022-07-29"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(primer.data)
+library(tidyverse)
+glimpse(nhanes)
+```
+
+```{r}
+nhanes |>
+  filter(gender == "Male") |>
+  select(height, weight) |>
+  drop_na(height, weight) |>
+  ggplot(mapping = aes(x = height, y = weight)) +
+  geom_line(alpha = .5, color = "magenta") +
+  geom_smooth(method = "loess", formula = y~x, se = TRUE) +
+  labs(title = "Height vs Weight in Males",
+       subtitle = "Correlation of height vs weight between Males",
+       x = "Height",
+       y = "Weight",
+       caption = "Nhanes") 
+```
+```{r}
+nhanes |>
+  filter(gender == "Male") |>
+  select(height, weight) |>
+  drop_na(height, weight) |>
+  ggplot(mapping = aes(x = height, y = weight)) +
+  geom_point(alpha = .3, color = "blue") +
+  labs(title = "Height vs Weight in Males",
+       subtitle = "Correlation of height vs weight between Males",
+       x = "Height",
+       y = "Weight",
+       caption = "Nhanes") 
+```
+
+
+
